@@ -47,11 +47,12 @@ var flathtmlgenerator = yeoman.generators.Base.extend(
             context = 
             {     storyId: this.storyId
                 , storyName: this.storyName
+                , appName: 'Sprint'
             };
 
         template = ( this.isMobile ) ? 'mobile' : 'wired';
 
-        this.template('templates/_'+template+'Index.html', 'whitebox/'+context.storyId+'/index.html', context);
+        this.template('www/_'+template+'Index.html', 'whitebox/stories/'+context.storyId+'/index.html', context);
     },
 
     end: function () 
