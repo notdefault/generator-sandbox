@@ -15,9 +15,19 @@ var flathtmlgenerator = yeoman.generators.Base.extend(
 
         var prompts = [
             {
-                name: 'siteTitle',
-                message: 'What is your site\'s title?',
-                default: 'My App'
+                name: 'storyId',
+                message: 'What is the pivotal story ID?',
+                default: '00000001'
+            },
+            {
+                name: 'storyName',
+                message: 'What is the Name/Title of your story?',
+                default: 'My new Dev work'
+            },
+            {
+                name: 'isMobile',
+                message: 'Do you want a mobile device sandbox?',
+                default: 'no'
             }
         ];
 
@@ -29,13 +39,19 @@ var flathtmlgenerator = yeoman.generators.Base.extend(
     },
 
 
-    files: function () 
-    {
-        var context = 
-        {
-            site_title: this.siteTitle
-        };
-        this.template('www/_index.html', 'index.html', context);
+    files: function (){
+
+        this.isMobile = ( this.isMobile == "yes" || this.isMobile == "y" ) ? true : false
+
+        var template = '',
+            context = 
+            {     storyId: this.storyId
+                , storyName: this.storyName
+            };
+
+        template = ( this.isMobile ) ? 'mobile' : 'wired';
+
+        this.template('templates/_'+template+'Index.html', 'whitebox/'+context.storyId+'/index.html', context);
     },
 
     end: function () 
